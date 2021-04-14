@@ -1,24 +1,23 @@
 <?php
 session_start();
-
-$client_id = '';
-$client_secret = '';
-$redirect_uri = 'http://localhost:8080/';
-$metadata_url = 'https://*.okta.com/oauth2/default/.well-known/openid-configuration';
+$client_id = '0oakzp36yXor0V7o25d6';
+$client_secret = '2fhv7B7VfuziBOvcHNzP8YpoDK1kvW323rsi7x1o';
+$redirect_uri = 'http://localhost/quick-php-authentication/';
+$metadata_url = 'https://dev-32978141-admin.okta.com/oauth2/default/.well-known/openid-configuration';
 
 
 
 if(isset($_GET['logout'])) {
   unset($_SESSION['username']);
   unset($_SESSION['sub']);
-  header('Location: /');
+  header('Location: http://localhost/quick-php-authentication/');
   die();
 }
 
 if(isset($_SESSION['sub'])) {
   echo '<p>Logged in as</p>';
   echo '<p>' . $_SESSION['username'] . '</p>';
-  echo '<p><a href="/?logout">Log Out</a></p>';
+  echo '<p><a href="./?logout">Log Out</a></p>';
   die();
 }
 
@@ -75,13 +74,12 @@ if(!isset($_GET['code'])) {
     $_SESSION['sub'] = $userinfo->sub;
     $_SESSION['username'] = $userinfo->preferred_username;
     $_SESSION['profile'] = $userinfo;
-    header('Location: /');
+    
+    header('Location: http://localhost/quick-php-authentication/');
     die();
   }
 
 }
-
-
 
 // Base64-urlencoding is a simple variation on base64-encoding
 // Instead of +/ we use -_, and the trailing = are removed.
